@@ -2,6 +2,7 @@ import { Component } from "react";
 import getUsers from "./api/index";
 import UserList from "./UserList";
 import styles from "./UsersLoader.module.sass";
+import { string } from "prop-types";
 
 class UsersLoader extends Component {
   constructor(props) {
@@ -12,16 +13,17 @@ class UsersLoader extends Component {
       isFetching: false,
       error: null,
       currentPage: 1,
+      resultsPerPage: 5,
     };
   }
 
   loadUsers = () => {
-    const { currentPage } = this.state;
+    const { currentPage, resultsPerPage } = this.state;
 
     this.setState({ isFetching: true });
     getUsers({
       page: currentPage,
-      results: 5,
+      results: resultsPerPage,
       seed: "pe2022",
       inc: ["name", "gender", "email", "login", "picture"],
     })
@@ -54,6 +56,16 @@ class UsersLoader extends Component {
     this.setState({ currentPage: currentPage + 1 });
   };
 
+  handleInputChange = (e) => {
+    const value = parseInt(e.target.value);
+    console.log(value);
+    if (isNaN(value) || value < 1) {
+      this.setState({ resultsPerPage: 1 });
+    } else {
+      this.setState({ resultsPerPage: value });
+    }
+  };
+
   render() {
     const { users, isFetching, error, currentPage } = this.state;
 
@@ -71,6 +83,29 @@ class UsersLoader extends Component {
               <button className={styles.btPage} onClick={this.nextPage}>
                 {">"}
               </button>
+            </div>
+
+            <div className={styles.searchContainer}>
+              <label className={styles.searchLabel} htmlFor="resultsPerPage">
+                Оберіть кількість:
+              </label>
+              <div className={styles.inputWrapper}>
+                <input
+                  id="resultsPerPage"
+                  className={styles.searchInput}
+                  type="number"
+                  min="1"
+                  name="resultsPerPage"
+                  value={this.state.resultsPerPage}
+                  onChange={this.handleInputChange}
+                />
+                <button
+                  className={styles.searchButton}
+                  onClick={this.loadUsers}
+                >
+                  Шукати
+                </button>
+              </div>
             </div>
 
             <div className={styles.usersContainer}>
