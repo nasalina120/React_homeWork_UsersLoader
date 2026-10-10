@@ -1,6 +1,7 @@
 import { Component } from "react";
 import getUsers from "./api/index";
 import UserList from "./UserList";
+import styles from "./UsersLoader.module.sass";
 
 class UsersLoader extends Component {
   constructor(props) {
@@ -62,11 +63,17 @@ class UsersLoader extends Component {
         {isFetching && <div>Loading. Please waite...</div>}
         {!error && !isFetching && (
           <>
-            <button onClick={this.prevPage}>{"<"}</button>
-            <p>{currentPage}</p>
-            <button onClick={this.nextPage}>{">"}</button>
+            <div className={styles.paginationContainer}>
+              <button className={styles.btPage} onClick={this.prevPage}>
+                {"<"}
+              </button>
+              <p className={styles.currentPage}>{currentPage}</p>
+              <button className={styles.btPage} onClick={this.nextPage}>
+                {">"}
+              </button>
+            </div>
 
-            <div className="users-container">
+            <div className={styles.usersContainer}>
               {users.map((u) => (
                 <UserList key={u.login.uuid} user={u}></UserList>
               ))}

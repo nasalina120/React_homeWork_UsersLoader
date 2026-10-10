@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import styles from "./UserList.module.sass";
 
 export default function UserList({ user }) {
@@ -7,10 +8,17 @@ export default function UserList({ user }) {
     login: { username },
     name: { title, first, last },
     picture: { large },
+    gender,
   } = user;
+
+  const stylesArt = classNames(styles.articleUser, {
+    [styles.borderPink]: gender === "female",
+    [styles.borderBlue]: gender !== "female",
+  });
+
   return (
     <>
-      <article className={styles.articleUser}>
+      <article className={stylesArt}>
         <div className={styles.fotoUser}>
           <img src={large} alt="fotoUser" />
         </div>
