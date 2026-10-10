@@ -1,5 +1,6 @@
 import { Component } from "react";
 import getUsers from "./api/index";
+import UserList from "./UserList";
 class UsersLoader extends Component {
   constructor(props) {
     super(props);
@@ -65,25 +66,9 @@ class UsersLoader extends Component {
             <button onClick={this.nextPage}>{">"}</button>
 
             <div className="users-container">
-              {users.map(
-                ({
-                  picture: { medium },
-                  name: { first, last },
-                  login: { username, uuid },
-                  email,
-                }) => (
-                  <article key={uuid}>
-                    <div>
-                      <img src={medium} alt="fotoUser" />
-                    </div>
-                    <p className="userName">
-                      Name: {first} {last}
-                    </p>
-                    <p className="userLogin">Login: {username}</p>
-                    <p className="userEmail">Email: {email}</p>
-                  </article>
-                ),
-              )}
+              {users.map((u) => (
+                <UserList key={u.login.uuid} user={u}></UserList>
+              ))}
             </div>
           </>
         )}
