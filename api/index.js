@@ -1,9 +1,9 @@
 function getUsers(options) {
-  const { page, results, seed, inc } = options;
+  const { page, results, inc, gender } = options;
 
   return fetch(
-    `https://randomuser.me/api/?page=${page}&results=${results}&seed=${seed}&inc=${inc}`
-  ).then(response => response.json());
+    `https://randomuser.me/api/?page=${page}&results=${results}&inc=${inc}&gender=${gender || ""}`,
+  ).then((response) => response.json());
 }
 
 export default getUsers;

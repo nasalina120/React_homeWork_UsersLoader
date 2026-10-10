@@ -14,18 +14,20 @@ class UsersLoader extends Component {
       error: null,
       currentPage: 1,
       resultsPerPage: 5,
+      currentGender: "",
     };
   }
 
   loadUsers = () => {
-    const { currentPage, resultsPerPage } = this.state;
+    const { currentPage, resultsPerPage, currentGender } = this.state;
 
     this.setState({ isFetching: true });
     getUsers({
       page: currentPage,
       results: resultsPerPage,
-      seed: "pe2022",
+
       inc: ["name", "gender", "email", "login", "picture"],
+      gender: currentGender,
     })
       .then((data) => this.setState({ users: data.results }))
       .catch((e) => this.setState({ error: e }))
@@ -37,9 +39,12 @@ class UsersLoader extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { currentPage } = this.state;
+    const { currentPage, currentGender } = this.state;
 
-    if (currentPage !== prevState.currentPage) {
+    if (
+      currentPage !== prevState.currentPage ||
+      currentGender !== prevState.currentGender
+    ) {
       this.loadUsers();
     }
   }
@@ -64,6 +69,10 @@ class UsersLoader extends Component {
     } else {
       this.setState({ resultsPerPage: value });
     }
+  };
+
+  handleGenderChange = (e) => {
+    this.setState({ currentGender: e.target.value, currentPage: 1 });
   };
 
   render() {
@@ -106,6 +115,28 @@ class UsersLoader extends Component {
                   Шукати
                 </button>
               </div>
+              <button
+                value={""}
+                className={styles.searchButton}
+                onClick={this.handleGenderChange}
+              >
+                Усі
+              </button>
+              <button
+                value={"female"}
+                className={styles.searchButton}
+                onClick={this.handleGenderChange}
+              >
+                Жінки
+              </button>
+              <button
+                value={"male"}
+                className={styles.searchButton}
+                onClick={this.handleGenderChange}
+              >
+                Чоловіки
+              </button>
+              <div></div>
             </div>
 
             <div className={styles.usersContainer}>
