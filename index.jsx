@@ -2,6 +2,7 @@ import { Component } from "react";
 import getUsers from "./api/index";
 import UserList from "./UserList";
 import styles from "./UsersLoader.module.sass";
+import GenderBtn from "./GenderBtn";
 import { string } from "prop-types";
 
 class UsersLoader extends Component {
@@ -26,7 +27,7 @@ class UsersLoader extends Component {
       page: currentPage,
       results: resultsPerPage,
 
-      inc: ["name", "gender", "email", "login", "picture"],
+      inc: ["name", "gender", "email", "login", "picture", "nat"],
       gender: currentGender,
     })
       .then((data) => this.setState({ users: data.results }))
@@ -115,29 +116,8 @@ class UsersLoader extends Component {
                   Шукати
                 </button>
               </div>
-              <button
-                value={""}
-                className={styles.searchButton}
-                onClick={this.handleGenderChange}
-              >
-                Усі
-              </button>
-              <button
-                value={"female"}
-                className={styles.searchButton}
-                onClick={this.handleGenderChange}
-              >
-                Жінки
-              </button>
-              <button
-                value={"male"}
-                className={styles.searchButton}
-                onClick={this.handleGenderChange}
-              >
-                Чоловіки
-              </button>
-              <div></div>
             </div>
+            <GenderBtn handleGenderChange={this.handleGenderChange}></GenderBtn>
 
             <div className={styles.usersContainer}>
               {users.map((u) => (

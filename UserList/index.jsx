@@ -9,6 +9,7 @@ export default function UserList({ user }) {
     name: { title, first, last },
     picture: { large },
     gender,
+    nat,
   } = user;
 
   const stylesArt = classNames(styles.articleUser, {
@@ -24,8 +25,10 @@ export default function UserList({ user }) {
         </div>
         <div className={styles.userInfo}>
           <p className={styles.userName}>
-            {title} {first} {last}
+            {title} {first} {last} {nat}
           </p>
+          <p className={styles.userNat}>nationality: {nat}</p>
+
           <p className={styles.userLogin}>login: {username}</p>
           <p className={styles.userEmail}>email: {email}</p>
         </div>
