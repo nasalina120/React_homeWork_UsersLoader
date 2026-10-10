@@ -20,7 +20,7 @@ class UsersLoader extends Component {
       page: currentPage,
       results: 5,
       seed: "pe2022",
-      inc: ["name", "gender", "email", "login"],
+      inc: ["name", "gender", "email", "login", "picture"],
     })
       .then((data) => this.setState({ users: data.results }))
       .catch((e) => this.setState({ error: e }))
@@ -52,7 +52,7 @@ class UsersLoader extends Component {
   };
 
   render() {
-    const { users, isFetching, error } = this.state;
+    const { users, isFetching, error, currentPage } = this.state;
 
     return (
       <>
@@ -61,12 +61,30 @@ class UsersLoader extends Component {
         {!error && !isFetching && (
           <>
             <button onClick={this.prevPage}>{"<"}</button>
+            <p>{currentPage}</p>
             <button onClick={this.nextPage}>{">"}</button>
-            <ul>
-              {users.map((u) => (
-                <li key={u.login.uuid}>{JSON.stringify(u)}</li>
-              ))}
-            </ul>
+
+            <div className="users-container">
+              {users.map(
+                ({
+                  picture: { medium },
+                  name: { first, last },
+                  login: { username, uuid },
+                  email,
+                }) => (
+                  <article key={uuid}>
+                    <div>
+                      <img src={medium} alt="fotoUser" />
+                    </div>
+                    <p className="userName">
+                      Name: {first} {last}
+                    </p>
+                    <p className="userLogin">Login: {username}</p>
+                    <p className="userEmail">Email: {email}</p>
+                  </article>
+                ),
+              )}
+            </div>
           </>
         )}
       </>
