@@ -1,6 +1,7 @@
 import { Component } from "react";
 import getUsers from "./api/index";
 import UserList from "./UserList";
+
 class UsersLoader extends Component {
   constructor(props) {
     super(props);

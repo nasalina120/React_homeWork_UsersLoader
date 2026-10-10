@@ -1,25 +1,26 @@
 import React from "react";
+import styles from "./UserList.module.sass";
 
 export default function UserList({ user }) {
   const {
     email,
     login: { username },
     name: { title, first, last },
-    picture: { medium },
+    picture: { large },
   } = user;
   return (
     <>
-      <article>
-        <div>
-          <img src={medium} alt="fotoUser" />
+      <article className={styles.articleUser}>
+        <div className={styles.fotoUser}>
+          <img src={large} alt="fotoUser" />
         </div>
-        <p className="userName">
-          Name: {title}
-          {first}
-          {last}
-        </p>
-        <p className="userLogin">Login: {username}</p>
-        <p className="userEmail">Email: {email}</p>
+        <div className={styles.userInfo}>
+          <p className={styles.userName}>
+            {title} {first} {last}
+          </p>
+          <p className={styles.userLogin}>login: {username}</p>
+          <p className={styles.userEmail}>email: {email}</p>
+        </div>
       </article>
     </>
   );
