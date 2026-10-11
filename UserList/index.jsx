@@ -50,7 +50,7 @@ export default function UserList({ user }) {
     <>
       <article className={stylesArt}>
         <div className={styles.fotoUser}>
-          <img src={large} alt="fotoUser" />
+          <img className={styles.userImg} src={large} alt="fotoUser" />
         </div>
         <div className={styles.userInfo}>
           <p className={styles.userName}>
