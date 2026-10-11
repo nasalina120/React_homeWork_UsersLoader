@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import styles from "./UserList.module.sass";
+import PropTypes from "prop-types";
 
 export default function UserList({ user }) {
   const {
@@ -14,9 +15,23 @@ export default function UserList({ user }) {
 
   const stylesArt = classNames(styles.articleUser, {
     [styles.borderPink]: gender === "female",
-    [styles.borderBlue]: gender !== "female",
+    [styles.borderBlue]: gender === "male",
   });
 
+  UserList.propTypes = {
+    user: PropTypes.shape({
+      login: PropTypes.shape({ username: PropTypes.string }),
+      email: PropTypes.string,
+      name: PropTypes.shape({
+        title: PropTypes.string,
+        first: PropTypes.string,
+        last: PropTypes.string,
+      }),
+      picture: PropTypes.shape({ large: PropTypes.string }),
+      gender: PropTypes.string,
+      nat: PropTypes.string,
+    }),
+  };
   return (
     <>
       <article className={stylesArt}>
