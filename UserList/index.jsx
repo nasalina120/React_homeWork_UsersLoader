@@ -18,6 +18,20 @@ export default function UserList({ user }) {
     [styles.borderBlue]: gender === "male",
   });
 
+  const countryMoods = {
+    US: "🍔",
+    GB: "☕",
+    DE: "🍺",
+    FR: "🥐",
+    UA: "🌻",
+    CA: "🍁",
+    IN: "🥻",
+    ES: "💃",
+    BR: "⚽",
+    MX: "🌮",
+  };
+
+  const countryEmoji = countryMoods[nat] || "🌍";
   UserList.propTypes = {
     user: PropTypes.shape({
       login: PropTypes.shape({ username: PropTypes.string }),
@@ -42,7 +56,9 @@ export default function UserList({ user }) {
           <p className={styles.userName}>
             {title} {first} {last} {nat}
           </p>
-          <p className={styles.userNat}>nationality: {nat}</p>
+          <p className={styles.userNat}>
+            nationality: {nat} {countryEmoji}
+          </p>
 
           <p className={styles.userLogin}>login: {username}</p>
           <p className={styles.userEmail}>email: {email}</p>
